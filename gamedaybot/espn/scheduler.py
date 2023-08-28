@@ -21,7 +21,7 @@ def scheduler():
     # score update:                       sunday at 4pm, 8pm east coast time.
 
     sched.add_job(func=espn_bot, trigger='cron', args=['get_draft'], id='get_draft',
-                  hour='22',
+                  hour=22,
                   minute=45,
                   start_date="2023-08-27", end_date="2023-08-29",
                   timezone=game_timezone, replace_existing=True)
