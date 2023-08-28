@@ -1,5 +1,32 @@
 from datetime import date
 
+def get_draft(league, week=None):
+    # Get draft
+    text = []
+    league._fetch_draft()
+    if league.draft:
+        text = (
+            ['Draft Results'] +
+            [""] +
+            ['👤 Mr. Irrelevant 👤'] +
+            [f"Round {d.round_num:02} - Pick {d.round_pick:02}: {d.playerName} ({d.team.team_name})" for d in league.draft[-1:]] +
+            [""] +
+            ["Full Recap"] +
+            [f"https://fantasy.espn.com/football/league/draftrecap?seasonId={league.year}&leagueId={league.league_id}"]
+        )
+    return '\n'.join(text)
+
+
+
+def remind_draft(league, week=None):
+    text = (
+        ['Draft Reminder'] + ['Monday, August 28, 9PM'] +
+        [f'\nLeague Home: https://fantasy.espn.com/football/league?leagueId={league.league_id}'] +
+        [f'\nDraft Strategy: http://fantasy.espn.com/football/editdraftstrategy?leagueId={league.league_id}']
+    )
+    return '\n'.join(text)
+
+
 def get_scoreboard_short(league, week=None):
     # Gets current week's scoreboard
     box_scores = league.box_scores(week=week)

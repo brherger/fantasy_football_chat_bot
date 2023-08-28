@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.insert(1, os.path.abspath('.'))
+# sys.path.insert(1, os.path.abspath('.'))
 import json
 from gamedaybot.espn.env_vars import get_env_vars
 import gamedaybot.espn.functionality as espn
@@ -9,6 +9,20 @@ from gamedaybot.chat.groupme import GroupMe
 from gamedaybot.chat.slack import Slack
 from gamedaybot.chat.discord import Discord
 from espn_api.football import League
+
+import requests
+
+# disable ssl warning
+requests.packages.urllib3.disable_warnings()
+
+# override the methods which you use
+requests.post = lambda url, **kwargs: requests.request(
+    method="POST", url=url, verify=False, **kwargs
+)
+
+requests.get = lambda url, **kwargs: requests.request(
+    method="GET", url=url, verify=False, **kwargs
+)
 
 def espn_bot(function):
     data = get_env_vars()
@@ -29,9 +43,9 @@ def espn_bot(function):
     else:
         league = League(league_id=league_id, year=year, espn_s2=espn_s2, swid=swid)
 
-    if league.scoringPeriodId > len(league.settings.matchup_periods):
-        print("Not in active season")
-        return
+    # if league.scoringPeriodId > len(league.settings.matchup_periods):
+    #     print("Not in active season")
+    #     return
 
     faab = league.settings.faab
 
@@ -79,6 +93,10 @@ def espn_bot(function):
     elif function == "get_waiver_report" and swid != '{1}' and espn_s2 != '1':
         faab = league.settings.faab
         text = espn.get_waiver_report(league, faab)
+    elif function == "get_draft":
+        text = espn.get_draft(league)
+    elif function == "remind_draft":
+        text = espn.remind_draft(league)
     elif function == "init":
         try:
             text = data["init_msg"]
@@ -97,6 +115,7 @@ def espn_bot(function):
 
 
 if __name__ == '__main__':
+
     from gamedaybot.espn.scheduler import scheduler
     espn_bot("init")
     scheduler()
