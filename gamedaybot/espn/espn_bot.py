@@ -117,5 +117,5 @@ def espn_bot(function):
 if __name__ == '__main__':
 
     from gamedaybot.espn.scheduler import scheduler
-    espn_bot("init")
+    # espn_bot("init")
     scheduler()
