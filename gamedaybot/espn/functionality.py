@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime, timezone
 
 def get_draft(league, week=None):
     # Get draft
@@ -19,8 +19,10 @@ def get_draft(league, week=None):
 
 
 def remind_draft(league, week=None):
+    countdown = str((datetime(2023, 8, 29, 1, tzinfo=timezone.utc) -  datetime.now(timezone.utc)))
     text = (
         ['Draft Reminder'] + ['Monday, August 28, 9PM'] +
+        [f'Countdown: {countdown}'] +
         [f'\nLeague Home: https://fantasy.espn.com/football/league?leagueId={league.league_id}'] +
         [f'\nDraft Strategy: http://fantasy.espn.com/football/editdraftstrategy?leagueId={league.league_id}']
     )

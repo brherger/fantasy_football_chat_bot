@@ -20,14 +20,14 @@ def scheduler():
     # player monitor report:              sunday morning at 7:30am local time.
     # score update:                       sunday at 4pm, 8pm east coast time.
 
-    sched.add_job(function=espn_bot, trigger='cron', args=['get_draft'], id='get_draft',
-                  hour='10',
+    sched.add_job(func=espn_bot, trigger='cron', args=['get_draft'], id='get_draft',
+                  hour='22',
                   minute=45,
                   start_date="2023-08-27", end_date="2023-08-29",
                   timezone=game_timezone, replace_existing=True)
 
-    sched.add_job(function=espn_bot, trigger='cron', args=['remind_draft'], id='remind_draft',
-                  hour='10-20/2',
+    sched.add_job(func=espn_bot, trigger='cron', args=['remind_draft'], id='remind_draft',
+                  hour='10-20/1',
                   minute=30,
                   start_date="2023-08-27", end_date="2023-08-29",
                   timezone=game_timezone, replace_existing=True)
