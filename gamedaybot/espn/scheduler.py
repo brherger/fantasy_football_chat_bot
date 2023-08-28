@@ -27,7 +27,7 @@ def scheduler():
                   timezone=game_timezone, replace_existing=True)
 
     sched.add_job(func=espn_bot, trigger='cron', args=['remind_draft'], id='remind_draft',
-                  hour='10-20/1',
+                  hour=20,
                   minute=30,
                   start_date="2023-08-27", end_date="2023-08-29",
                   timezone=game_timezone, replace_existing=True)
