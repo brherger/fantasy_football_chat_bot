@@ -114,8 +114,22 @@ def espn_bot(function):
             discord_bot.send_message(message)
 
 
+    # https://github.com/cwendt94/espn-api/pull/59
+    # faab = league.settings.faab
+    # text = espn.get_waiver_report(league, faab)
+    # if text != '' and not test:
+    #     messages=utils.str_limit_check(text, data['str_limit'])
+    #     for message in messages:
+    #         # bot.send_message(message)
+    #         # slack_bot.send_message(message)
+    #         # discord_bot.send_message(message)
+    #         print(message)
+
 if __name__ == '__main__':
 
     from gamedaybot.espn.scheduler import scheduler
     # espn_bot("init")
     scheduler()
+
+
+
